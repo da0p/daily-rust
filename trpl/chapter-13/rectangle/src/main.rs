@@ -49,4 +49,36 @@ fn main() {
         r.width
     });
     println!("{:#?}, sorted in {num_sort_operations} operations", list);
+
+    let v1 = vec![1, 2, 3];
+    let v1_iter = v1.iter();
+    for val in v1_iter {
+        println!("Got: {}", val);
+    }
+
+    let sum = iterator_sum();
+    println!("sum = {sum}");
+
+    let map_sum = map_sum();
+    println!("map_sum = {:#?}", map_sum);
+}
+
+fn iterator_sum() -> i32 {
+    let v1 = vec![1, 2, 3];
+
+    let v1_iter = v1.iter();
+
+    // sum() takes onwnerhip of the iterator, so we can't use v1_iter
+    // after using sum()
+    let total: i32 = v1_iter.sum();
+
+    total
+}
+
+fn map_sum() -> Vec<i32> {
+    let v1: Vec<i32> = vec![1, 2, 3];
+
+    let v2 = v1.iter().map(|x| x + 1).collect();
+
+    v2
 }
