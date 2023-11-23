@@ -1,23 +1,17 @@
-use clap::{arg, Command, Parser};
+use clap::{arg, Parser};
 
-#[derive(Parser, Debug)]
+#[derive(Parser)]
 #[command(author, version, about, long_about = None)]
-struct Args {
+struct Cli {
+    text: Vec<String>,
+
     #[arg(short, long)]
-    text: String,
+    omit_newline: bool
 }
 
 fn main() {
-    let matches = Command::new("echor")
-        .version("0.1.0")
-        .author("Phuong Dao")
-        .about("echor")
-        .args([
-            arg!(-t --text <TEXT> "Input text").required(false),
-            arg!(-n --omit_newline "Omit new line").required(false),
-        ])
-        .get_matches();
-
-    let text = matches.get_one::<String>("text");
-    println!("{}", text.unwrap());
+    let cli =  Cli::parse();
+    let text = cli.text.join(" ");
+    let omit_newline = cli.omit_newline;
+    print!("{}{}", text, if omit_newline {""} else {"\n"}); 
 }
